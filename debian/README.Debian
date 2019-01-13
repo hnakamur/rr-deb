@@ -1,0 +1,13 @@
+rr for Debian
+-------------
+
+rr currently only supports Intel CPUs of the Merom, Nehalem, Sandy
+Bridge, Ivy Bridge, Haswell, Broadwell or Skylake variety. No AMD CPU
+is supported, and no Intel CPU before Merom.
+
+rr conflicts with certain kernel features; running rr will tell you
+what needs changed (if anything). It may suggest checking perf; this
+means you need to check /proc/sys/kernel/perf_event_paranoid and set
+it to -1 ("not paranoid at all") if necessary.
+
+ -- Stephen Kitt <skitt@debian.org>, Wed,  3 Feb 2016 13:54:20 +0100

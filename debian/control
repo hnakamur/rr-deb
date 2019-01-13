@@ -1,0 +1,39 @@
+Source: rr
+Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Stephen Kitt <skitt@debian.org>
+Section: devel
+Priority: optional
+Build-Depends: capnproto,
+               cmake,
+               debhelper (>= 11~),
+               g++-multilib,
+               gdb,
+               libcapnp-dev,
+               libdisasm-dev,
+               libpfm4-dev,
+               pkg-config,
+               python,
+               python-pexpect
+# The following are required for the test suite
+# realpath
+Standards-Version: 4.3.0
+Vcs-Browser: https://salsa.debian.org/debian/rr
+Vcs-Git: https://salsa.debian.org/debian/rr.git
+Homepage: http://rr-project.org
+Rules-Requires-Root: no
+
+Package: rr
+Architecture: amd64
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
+Description: application execution recorder, player and debugger
+ rr allows application executions to be recorded and then replayed
+ with gdb as many times as desired.
+ .
+ This allows intermittent, or complex to reproduce, bugs to be
+ captured and then debugged at leisure. Replays are deterministic,
+ always identical from one run to another.
+ .
+ rr is incompatible with ptrace hardening, and currently only supports
+ Intel CPUs with Nehalem or later microarchitectures. The amd64
+ package supports debugging amd64 and i386 binaries.

@@ -1,0 +1,171 @@
+.TH rr "1" "November 2015" "rr - record and replay application executions" "User Commands"
+.SH NAME
+rr \- record and replay application execution
+.SH SYNOPSIS
+.B rr dump
+.RI [< options ">] [<" trace-dir ">] [<" event-specs >]
+.br
+.B rr gdbinit
+.br
+.B rr help
+.RI [< command >]
+.br
+.B rr ps
+.RI [< trace-dir >]
+.br
+.B rr record
+.RI [< options ">] <" executable "> [<" exe-args >]
+.br
+.B rr replay
+.RI [< options ">] [<" trace-dir >]
+.SH DESCRIPTION
+.SS Common options
+.TP
+.BR \-A " <" \fIname\fP ">, " \-\-microarch= < \fIname\fP >
+force \fBrr\fP to assume it's running on a CPU with microarch
+\fIname\fP even if runtime detection says otherwise. \fIname\fP should
+be a string like `Ivy Bridge'.
+.TP
+.BR \-C " {" on\-syscalls , on\-all\-events ,< \fIfrom-time\fP ">}, " \-\-checksum= { on\-syscalls , on\-all\-events ,< \fIfrom-time\fP >}
+compute and store (during recording) or read and verify (during
+replay) checksums of each of a tracee's memory mappings either at the
+end of all syscalls (\fBon\-syscalls\fP), at all events
+(\fBon\-all\-events\fP), or starting from a global timepoint
+\fIfrom-time\fP.
+.TP
+.BR \-D " {<" \fIsyscall-num\fP , \- < \fIsignal-num\fP ">}, " \-\-dump\-on= {< \fIsyscall-num\fP , \- < \fIsignal-num\fP >}
+dump memory at \fIsyscall\fP or \fIsignal\fP to the file
+.IB tid . time _ \fR{\fP rec \fR,\fP rep \fR}\fP
+in \fItrace-dir\fP; \fB_rec\fP for dumps during recording, \fB_rep\fP
+for dumps during replay.
+.TP
+.BR \-F ", " \-\-force\-things
+force \fBrr\fP to do some things that don't seem like good ideas, such
+as launching an interactive emergency debugger if \fBstderr\fP isn't a
+tty.
+.TP
+.BR \-K ", " \-\-check\-cached\-mmaps
+verify that cached task mmaps match \fB/proc/maps\fP.
+.TP
+.BR \-E ", " \-\-fatal\-errors
+any warning or error that is printed is treated as fatal.
+.TP
+.BR \-M ", " \-\-mark\-stdio
+mark \fBstdio\fP writes with \fB[rr <\fIpid\fP> <\fIev\fP>]\fP where
+\fIev\fP is the global trace time at which the write occurs and
+\fIpid\fP is the pid of the process it occurs in.
+.TP
+.BR \-N ", " \-\-version
+print the version number and exit.
+.TP
+.BR \-S ", " \-\-suppress\-environment\-warnings
+suppress warnings about issues in the environment that \fBrr\fP has no
+control over.
+.TP
+.BR \-T " <" \fItime\fP ">, " \-\-dump\-at= < \fItime\fP >
+dump memory at global timepoint \fItime\fP
+.TP
+.BR \-V ", " \-\-verbose
+log messages that may not be urgently critical to the user
+.TP
+.BR \-W " <" \fInum-secs\fP ">, " \-\-wait\-secs= < \fInum-secs\fP >
+wait \fInum-secs\fP seconds just after startup, before initiating
+recording or replaying.
+.SS Syntax for `record'
+.IP
+.B rr record
+.RI [< options ">] <" executable "> [<" exe-args >]
+.TP
+.BR \-b ", " \-\-force\-syscall\-buffer
+force the systall buffer preload library to be used, even if that's
+probably a bad idea
+.TP
+.BR \-c " <\fInum\fP>, " \-\-num\-cpu\-ticks= <\fInum\fP>
+maximum number of `CPU ticks' (currently retired conditional branches)
+to allow a task to run before interrupting it
+.TP
+.BR \-e " <\fInum\fP>, " \-\-num\-events= <\fInum\fP>
+maximum number of events (syscall enter/exit, signal, CPU
+interrupt, ...) to allow a task before descheduling it
+.TP
+.BR \-i " <\fIsignal\fP>, " \-\-ignore\-signal= <\fIsignal\fP>
+block \fIsignal\fP from being delivered to tracees; probably only
+useful for unit tests
+.TP
+.BR \-n ", " \-\-no\-syscall\-buffer
+disable the syscall buffer preload library even if it would otherwise
+be used
+.TP
+.BR \-u ", " \-\-cpu\-unbound
+allow tracees to run on any virtual CPU (default is to bind to CPU 0);
+this option can cause replay divergence: use with caution
+.TP
+.BR \-v " <\fIname>" = "<\fIvalue\fP>, " \-\-env= <\fIname\> = <\fIvalue\fP>
+value to add to the environment of the tracee; there can be any number
+of these
+.SS Syntax for `replay'
+.IP
+.B rr replay
+.RI [< options ">] [<" trace-dir >]
+.TP
+.BR \-a ", " \-\-autopilot
+replay without debug server
+.TP
+.BR \-d " <\fIcommand\fP>, " \-\-debugger= <\fIcommand\fP>
+use \fIcommand\fP as the \fBgdb\fP(1) command
+.TP
+.BR \-f " <\fIpid\fP>, " \-\-onfork= <\fIpid\fP>
+start a debug server when \fIpid\fP has been forked, \fBand\fP the
+target event has been reached
+.TP
+.BR \-g " <\fIevent-num\fP>, " \-\-goto= <\fIevent-num\fP>
+start a debug server on reaching \fIevent-num\fP in the trace; see
+\fB\-M\fP in the general options
+.TP
+.BR \-p " {<\fIpid\fP>,<\fIcommand\fP>}, " \-\-onprocess= {<\fIpid\fP>,<\fIcommand\fP>}
+start a debug server when \fIpid\fP or \fIcommand\fP has been exec'd,
+\fBand\fP the target event has been reached
+.TP
+.BR \-q ", " \-\-no\-redirect\-output
+don't replay writes to \fBstdout\fP/\fBstderr\fP
+.TP
+.BR \-s " <\fIport\fP>, " \-\-dbgport= <\fIport\fP>
+only start a debug server on \fIport\fP; don't automatically launch
+the debugger client too
+.TP
+.BR \-t " <\fIevent\fP>, " \-\-trace= <\fIevent\fP>
+singlestep instructions and dump register states when replaying
+towards \fIevent\fP or later
+.TP
+.BR \-x " <\fIfile\fP>, " \-\-gdb\-x= <\fIfile\fP>
+execute \fBgdb\fP(1) commands from \fIfile\fP
+.SS Syntax for `dump`
+.IP
+.B rr dump
+.RI [< options ">] [<" trace-dir ">] [<" event-specs >]
+.PP
+Event specs can be either an event number like `127', or a range like
+`1000\-5000'.  By default, all events are dumped.
+.TP
+.BR \-b ", " \-\-syscallbuf
+dump syscallbuf contents
+.TP
+.BR \-m ", " \-\-recorded-metadata
+dump recorded metadata
+.TP
+.BR \-p ", " \-\-mmaps
+dump mmap data
+.TP
+.BR \-r ", " \-\-raw
+dump trace frames in a more easily machine-parseable format instead of
+the default human-readable format
+.TP
+.BR \-s ", " \-\-statistics
+dump statistics about the trace
+.SH AUTHORS
+\fBrr\fP was written by Robert O'Callahan, Chris Jones, Nathan Froyd
+and others.
+.PP
+This manual page was adapted from the help output by Stephen Kitt
+<skitt@debian.org>, for the Debian GNU/Linux system (but may be used
+by others). It was last modified for \fBrr\fP version 4.0.1.

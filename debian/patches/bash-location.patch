@@ -1,0 +1,11 @@
+Description: On Debian systems bash is /bin/bash
+Author: Stephen Kitt <skitt@debian.org>
+
+--- a/scripts/signal-rr-recording.sh
++++ b/scripts/signal-rr-recording.sh
+@@ -1,4 +1,4 @@
+-#!/usr/bin/bash
++#!/bin/bash
+ 
+ signal=$1
+ if [[ "$signal" == "" ]]; then

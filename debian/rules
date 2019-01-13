@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+export DH_OPTIONS += -O-Bbuild
+
+%:
+	dh $@ --buildsystem=cmake
+
+override_dh_auto_test:
+# Tests are disabled since they only work on supported CPUs
+# (Intel CPUs from Nehalem onwards)
+
+override_dh_auto_install:
+	dh_auto_install
+	mv debian/rr/usr/bin/signal-rr-recording.sh debian/rr/usr/bin/signal-rr-recording
+	mv debian/rr/usr/bin/rr_* debian/rr/usr/lib/rr/
+
+override_dh_strip:
+	dh_strip -Xlibrrpreload

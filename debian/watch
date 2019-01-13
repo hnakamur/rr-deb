@@ -1,0 +1,4 @@
+version=4
+opts="filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.tar\.gz%rr-$1.tar.gz%,repacksuffix=+dfsg,dversionmangle=s%\+dfsg%%" \
+    https://github.com/mozilla/rr/tags \
+    (?:.*?/)?v?(\d[\d.]*)\.tar\.gz debian uupdate

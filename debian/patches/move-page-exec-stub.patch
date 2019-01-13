@@ -1,0 +1,25 @@
+Description: Move supporting binaries to /usr/lib/rr
+Author: Stephen Kitt <skitt@debian.org>
+
+--- a/src/AddressSpace.cc
++++ b/src/AddressSpace.cc
+@@ -258,7 +258,7 @@
+ }
+ 
+ static string find_rr_page_file(Task* t) {
+-  string path = exe_directory() + "../bin/rr_page_";
++  string path = exe_directory() + "../lib/rr/rr_page_";
+   switch (t->arch()) {
+     case x86:
+       path += "32";
+--- a/src/replay_syscall.cc
++++ b/src/replay_syscall.cc
+@@ -332,7 +332,7 @@
+ }
+ 
+ static string find_exec_stub(SupportedArch arch) {
+-  string exe_path = exe_directory() + "../bin/";
++  string exe_path = exe_directory() + "../lib/rr/";
+   if (arch == x86 && NativeArch::arch() == x86_64) {
+     exe_path += "rr_exec_stub_32";
+   } else {

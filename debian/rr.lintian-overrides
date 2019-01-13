@@ -1,0 +1,18 @@
+# The stubs are used in a way which requires them to be statically linked
+rr: statically-linked-binary usr/lib/rr/rr_exec_stub
+rr: statically-linked-binary usr/lib/rr/rr_exec_stub_32
+
+# These are portions of executables
+rr: executable-not-elf-or-script usr/lib/rr/rr_page_32
+rr: executable-not-elf-or-script usr/lib/rr/rr_page_32_replay
+rr: executable-not-elf-or-script usr/lib/rr/rr_page_64
+rr: executable-not-elf-or-script usr/lib/rr/rr_page_64_replay
+
+# These are not spelling mistakes (compression dictionary)
+rr: spelling-error-in-binary usr/bin/rr ofthe of the
+rr: spelling-error-in-binary usr/bin/rr befor before
+rr: spelling-error-in-binary usr/bin/rr withthe with the
+
+# We need the symbols in the preload libraries
+rr: unstripped-binary-or-object usr/lib/rr/librrpreload.so
+rr: unstripped-binary-or-object usr/lib/rr/librrpreload_32.so

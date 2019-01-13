@@ -1,0 +1,218 @@
+rr (5.2.0-4build1) disco; urgency=medium
+
+  * No-change rebuild against libcapnp-0.7.0
+
+ -- Steve Langasek <steve.langasek@ubuntu.com>  Sun, 13 Jan 2019 00:31:15 +0000
+
+rr (5.2.0-4) unstable; urgency=medium
+
+  * Build only on amd64, since the i386 package isn’t aligned with the
+    i386 “baseline”. Closes: #915337.
+  * Switch to C++14 for C++ code, as required by capnproto 0.7.
+  * Standards-Version 4.3.0, no change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Wed, 02 Jan 2019 12:02:08 +0100
+
+rr (5.2.0-3) unstable; urgency=medium
+
+  * Apply upstream patch to drop ucontext_t, which broke with glibc 2.28.
+    Closes: #915338.
+  * Standards-Version 4.2.1, no change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Mon, 03 Dec 2018 08:51:54 +0100
+
+rr (5.2.0-2) unstable; urgency=medium
+
+  * Stop stripping librrpreload, its debug symbols are needed at runtime.
+  * Set “Rules-Requires-Root: no”.
+  * Standards-Version 4.2.0, no further change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Fri, 17 Aug 2018 09:32:06 +0200
+
+rr (5.2.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephen Kitt <skitt@debian.org>  Tue, 29 May 2018 22:36:22 +0200
+
+rr (5.1.0-2) unstable; urgency=medium
+
+  * Migrate to Salsa.
+  * Update debian/copyright.
+  * Standards-Version 4.1.4, no further change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Tue, 15 May 2018 21:00:13 +0200
+
+rr (5.1.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Refer to the common-licenses CC0 copy in debian/copyright.
+  * Switch to debhelper compatibility level 11.
+  * Standards-Version 4.1.3, no further change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Mon, 08 Jan 2018 11:51:50 +0100
+
+rr (5.0.0-1) unstable; urgency=medium
+
+  * New upstream release:
+    - merge gcc-7.patch;
+    - add build-dependencies for Cap'n Proto;
+    - document new third-party code;
+    - drop documentation, no longer shipped;
+    - enable PIE.
+  * Standards-Version 4.1.0, no change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Fri, 08 Sep 2017 19:13:07 +0200
+
+rr (4.5.0-1) unstable; urgency=medium
+
+  * New upstream release, merging move-librrpreload.patch.
+  * Update watch file.
+  * Import upstream fix to build with GCC 7 (closes: #853646).
+  * Standards-Version 4.0.0, no change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Sat, 24 Jun 2017 23:10:55 +0200
+
+rr (4.4.0-2) unstable; urgency=medium
+
+  * Disable PIE (closes: #844871).
+  * Switch to debhelper compatibility level 10.
+
+ -- Stephen Kitt <skitt@debian.org>  Mon, 28 Nov 2016 23:10:02 +0100
+
+rr (4.4.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephen Kitt <skitt@debian.org>  Sat, 01 Oct 2016 15:47:05 +0200
+
+rr (4.3.0-1) unstable; urgency=medium
+
+  * New upstream release:
+    - drop scheduler-math.h.patch, merged upstream;
+    - refresh move-librrpreload.patch and move-page-exec-stub.patch
+      (upstream installs its binaries stubs in /usr/bin now, prefixed with
+      rr_; this package installs them in /usr/lib/rr instead).
+
+ -- Stephen Kitt <skitt@debian.org>  Thu, 30 Jun 2016 20:09:45 +0200
+
+rr (4.2.0-2) unstable; urgency=medium
+
+  * Include math.h in Scheduler.cc (closes: #822496).
+  * Standards-Version 3.9.8, no change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Mon, 25 Apr 2016 21:06:50 +0200
+
+rr (4.2.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Standards-Version 3.9.7, no change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Thu, 17 Mar 2016 21:07:51 +0100
+
+rr (4.1.0-2) unstable; urgency=medium
+
+  * Add missing build-dependency on gdb (with thanks to the ever-
+    vigilant Chris Lamb; closes: #814211).
+
+ -- Stephen Kitt <skitt@debian.org>  Tue, 09 Feb 2016 10:45:20 +0100
+
+rr (4.1.0-1) unstable; urgency=medium
+
+  * New upstream release (now supporting Skylake CPUs).
+  * Switch to https: VCS URIs (see #810378).
+
+ -- Stephen Kitt <skitt@debian.org>  Mon, 08 Feb 2016 23:39:35 +0100
+
+rr (4.0.3-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephen Kitt <skitt@debian.org>  Mon, 23 Nov 2015 08:38:45 +0100
+
+rr (4.0.2-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephen Kitt <skitt@debian.org>  Wed, 11 Nov 2015 12:09:26 +0100
+
+rr (4.0.1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update the rr manpage.
+  * Update README.Debian (closes: #803231).
+
+ -- Stephen Kitt <skitt@debian.org>  Mon, 02 Nov 2015 14:00:47 +0100
+
+rr (4.0.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Refresh patches.
+  * Install the supporting binaries to /usr/lib/rr instead of /usr/bin.
+  * Update rr manpage and add one for signal-rr-recording.
+
+ -- Stephen Kitt <skitt@debian.org>  Wed, 28 Oct 2015 00:12:49 +0100
+
+rr (3.2.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephen Kitt <skitt@debian.org>  Wed, 29 Apr 2015 20:32:57 +0200
+
+rr (3.1.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Drop test-tmpdir.patch, merged upstream.
+  * Refresh move-librrpreload.patch.
+  * g++-multilib, pkg-config and python-pexpect are now required.
+  * setup.sh is no longer provided.
+
+ -- Stephen Kitt <skitt@debian.org>  Sun, 26 Apr 2015 14:56:01 +0200
+
+rr (3.0.0-1) experimental; urgency=medium
+
+  * New upstream release, adding 64-bit and Broadwell support, uploaded to
+    experimental for the Jessie freeze.
+  * Add test-tmpdir.patch to support TMPDIR values other than /tmp.
+  * Enforce building with cmake.
+  * Standards-Version 3.9.6, no change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Sat, 20 Dec 2014 18:05:05 +0100
+
+rr (2.0.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * doc/rr.pdf is no longer shipped upstream, there is no need to filter
+    it in debian/copyright.
+  * Westmere and Haswell support is no longer experimental, update the
+    description accordingly.
+  * rr now needs zlib to build.
+  * Add bash-location.patch to fix the bash location in signal-rr-
+    recording.sh.
+  * Install signal-rr-recording.sh as signal-rr-recording.
+
+ -- Stephen Kitt <skitt@debian.org>  Tue, 09 Sep 2014 00:15:39 +0200
+
+rr (1.5.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephen Kitt <skitt@debian.org>  Wed, 13 Aug 2014 00:02:14 +0200
+
+rr (1.4.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephen Kitt <skitt@debian.org>  Tue, 12 Aug 2014 23:57:01 +0200
+
+rr (1.3.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Stephen Kitt <skitt@debian.org>  Sun, 04 May 2014 20:52:07 +0200
+
+rr (1.2.1+dfsg-1) unstable; urgency=low
+
+  * Initial release (closes: #742556).
+
+ -- Stephen Kitt <skitt@debian.org>  Fri, 18 Apr 2014 06:43:45 +0200
