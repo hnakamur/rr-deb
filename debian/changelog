@@ -1,3 +1,9 @@
+rr (5.2.0-4build1ppa1~18.04.1) bionic; urgency=medium
+
+  * Backport to Ubuntu 18.04 LTS 
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Mon, 25 Feb 2019 05:39:33 +0900
+
 rr (5.2.0-4build1) disco; urgency=medium
 
   * No-change rebuild against libcapnp-0.7.0
